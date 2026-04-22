@@ -108,30 +108,9 @@
                         <i class="fas fa-lock" style="font-size:0.72rem;"></i>
                     </a>
 
-                    <hr class="nav-divider">
 
-                    <div class="cqb-nav-link" style="cursor: default; pointer-events: none; opacity: 0.8;">
-                        <i class="fas fa-globe fa-icon"></i>
-                        <span class="nav-lbl">Sites Externos</span>
-                    </div>
-
-                    <div id="dynamic-sites-container">
-                        <!-- Links dinâmicos serão inseridos aqui -->
-                    </div>
 
                     <p class="cqb-nav-section" style="margin-top:8px;">Configurações</p>
-
-                    <a class="cqb-nav-link active" id="menu-rede" role="button" aria-expanded="true"
-                        onclick="toggleSubMenu('sub-rede', this)">
-                        <i class="fas fa-network-wired fa-icon"></i>
-                        <span class="nav-lbl">Configurações de Rede</span>
-                        <i class="fas fa-chevron-down nav-arr"></i>
-                    </a>
-                    <div class="cqb-submenu cqb-sub-open" id="sub-rede">
-                        <a class="cqb-nav-sub active" id="submenu-rede-wifi" onclick="showTab('rede','wifi')">
-                            <i class="fas fa-wifi"></i> Configurações de SSID
-                        </a>
-                    </div>
 
                     <hr class="nav-divider">
 
@@ -146,15 +125,27 @@
                         <a class="cqb-nav-sub" id="submenu-google" onclick="showSection('google')">
                             <i class="fab fa-google"></i> Google Drive
                         </a>
-                        <a class="cqb-nav-sub" id="submenu-bluetooth" onclick="showSection('bluetooth')">
+                        <a class="cqb-nav-sub" id="submenu-bluetooth" onclick="showTab('bluetooth')">
                             <i class="fab fa-bluetooth"></i> Bluetooth
                         </a>
-                        <a class="cqb-nav-sub" id="submenu-ai" onclick="showSection('ai')">
+                        <a class="cqb-nav-sub" id="submenu-ai" onclick="showTab('ai')">
                             <i class="fas fa-robot"></i> Ambiente AI
                         </a>
-                        <a class="cqb-nav-sub" id="submenu-reset" onclick="showSection('config')">
+                        <a class="cqb-nav-sub" id="submenu-reset" onclick="showTab('config')">
                             <i class="fas fa-shield-halved"></i> Reset &amp; Backups
                         </a>
+                        <a class="cqb-nav-sub" id="submenu-rede-wifi" onclick="showTab('rede','wifi')">
+                            <i class="fas fa-wifi"></i> Configurações de SSID
+                        </a>
+                    </div>
+                    <hr class="nav-divider">
+
+
+                    <p class="cqb-nav-section" style="margin-top:8px;">Sites Externos
+
+
+                    <div id="dynamic-sites-container">
+                        <!-- Links dinâmicos serão inseridos aqui -->
                     </div>
                 </div>
             </nav>
@@ -1855,13 +1846,13 @@
             async function loadDynamicSites() {
                 const container = document.getElementById('dynamic-sites-container');
                 const url = 'https://cdn.jsdelivr.net/gh/canalqb/ambiente_ESP@main/sites.txt';
-                
+
                 try {
                     const response = await fetch(url);
                     if (!response.ok) throw new Error('Falha ao carregar sites.txt');
                     const text = await response.text();
                     const lines = text.split('\n').filter(line => line.trim() !== '' && line.includes(';'));
-                    
+
                     container.innerHTML = ''; // Limpa o container
 
                     lines.forEach(line => {
@@ -1871,13 +1862,13 @@
                         a.href = link.trim();
                         a.target = '_blank';
                         a.rel = 'noopener noreferrer';
-                        
+
                         a.innerHTML = `
                             <i class="fas fa-book fa-icon"></i>
                             <span class="nav-lbl">${titulo.trim()}</span>
                             <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem;opacity:0.4;"></i>
                         `;
-                        
+
                         container.appendChild(a);
                     });
                 } catch (error) {
