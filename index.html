@@ -105,17 +105,14 @@
 
                     <hr class="nav-divider">
 
-                    <a class="cqb-nav-link" href="sites-externos.html" target="_blank" rel="noopener noreferrer">
+                    <div class="cqb-nav-link-static">
                         <i class="fas fa-globe fa-icon"></i>
                         <span class="nav-lbl">Sites Externos</span>
-                        <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem;opacity:0.4;"></i>
-                    </a>
+                    </div>
 
-                    <a class="cqb-nav-link" href="https://www.canalqb.com.br" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-book fa-icon"></i>
-                        <span class="nav-lbl">Visitar Blog por Canalqb Blog</span>
-                        <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem;opacity:0.4;"></i>
-                    </a>
+                    <div id="dynamic-sites-container">
+                        <!-- Links will be loaded here from sites.txt -->
+                    </div>
 
                     <p class="cqb-nav-section" style="margin-top:8px;">Configurações</p>
 
@@ -1781,6 +1778,42 @@
                     showToast('Erro ao conectar: ' + error.message, 'error');
                 }
             };
+
+            // Função para carregar sites dinamicamente do sites.txt no sidebar
+            async function loadDynamicSites() {
+                const container = document.getElementById('dynamic-sites-container');
+                const url = 'https://cdn.jsdelivr.net/gh/canalqb/ambiente_ESP@main/sites.txt';
+                
+                try {
+                    const response = await fetch(url);
+                    const text = await response.text();
+                    const lines = text.split('\n').filter(line => line.trim() !== '' && line.includes(';'));
+                    
+                    container.innerHTML = ''; // Limpa o container
+
+                    lines.forEach(line => {
+                        const [titulo, link] = line.split(';');
+                        const a = document.createElement('a');
+                        a.className = 'cqb-nav-link';
+                        a.href = link.trim();
+                        a.target = '_blank';
+                        a.rel = 'noopener noreferrer';
+                        
+                        a.innerHTML = `
+                            <i class="fas fa-book fa-icon"></i>
+                            <span class="nav-lbl">${titulo.trim()}</span>
+                            <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem;opacity:0.4;"></i>
+                        `;
+                        
+                        container.appendChild(a);
+                    });
+                } catch (error) {
+                    console.error('Erro ao carregar sites dinâmicos:', error);
+                }
+            }
+
+            // Iniciar carregamento
+            loadDynamicSites();
 
         })();
     </script>
