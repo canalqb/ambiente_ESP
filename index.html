@@ -131,39 +131,29 @@
                         </a>
                     </div>
 
-                    <a class="cqb-nav-link" id="menu-google" onclick="showSection('google')" role="button">
-                        <i class="fas fa-cloud fa-icon"></i>
-                        <span class="nav-lbl">Configuração Google</span>
-                        <i class="fas fa-circle-check nav-arr" id="google-ok"
-                            style="font-size:0.75rem;color:var(--cqb-green);display:none;"></i>
-                    </a>
+                    <hr class="nav-divider">
 
-                    <a class="cqb-nav-link" id="menu-bluetooth" onclick="showSection('bluetooth')" role="button">
-                        <i class="fab fa-bluetooth-b fa-icon"></i>
-                        <span class="nav-lbl">Configuração Bluetooth</span>
+                    <!-- COLLAPSIBLE CONFIG GROUP -->
+                    <a class="cqb-nav-link" id="menu-advanced-config" role="button" aria-expanded="false"
+                        onclick="toggleSubMenu('sub-advanced-config', this)">
+                        <i class="fas fa-gears fa-icon"></i>
+                        <span class="nav-lbl">Configurações</span>
+                        <i class="fas fa-chevron-right nav-arr"></i>
                     </a>
-
-                    <a class="cqb-nav-link" id="menu-ai" onclick="showSection('ai')" role="button">
-                        <i class="fas fa-robot fa-icon"></i>
-                        <span class="nav-lbl">Configuração Ambiente AI</span>
-                        <i class="fas fa-circle-check nav-arr" id="ai-ok"
-                            style="font-size:0.75rem;color:var(--cqb-green);display:none;"></i>
-                    </a>
-
-                    <a class="cqb-nav-link" id="menu-config" onclick="showSection('config')" role="button">
-                        <i class="fas fa-shield-halved fa-icon"></i>
-                        <span class="nav-lbl">Reset de Fábrica</span>
-                    </a>
-
-                    <a class="cqb-nav-link" id="menu-backup" onclick="showSection('backup')" role="button">
-                        <i class="fas fa-database fa-icon"></i>
-                        <span class="nav-lbl">Restauração de Configurações</span>
-                    </a>
-
-                    <a class="cqb-nav-link" id="menu-backup" onclick="showSection('backup')" role="button">
-                        <i class="fas fa-save fa-icon"></i>
-                        <span class="nav-lbl">Backup de Configurações</span>
-                    </a>
+                    <div class="cqb-submenu" id="sub-advanced-config">
+                        <a class="cqb-nav-sub" id="submenu-google" onclick="showSection('google')">
+                            <i class="fab fa-google"></i> Google Drive
+                        </a>
+                        <a class="cqb-nav-sub" id="submenu-bluetooth" onclick="showSection('bluetooth')">
+                            <i class="fab fa-bluetooth"></i> Bluetooth
+                        </a>
+                        <a class="cqb-nav-sub" id="submenu-ai" onclick="showSection('ai')">
+                            <i class="fas fa-robot"></i> Ambiente AI
+                        </a>
+                        <a class="cqb-nav-sub" id="submenu-reset" onclick="showSection('config')">
+                            <i class="fas fa-shield-halved"></i> Reset &amp; Backups
+                        </a>
+                    </div>
                 </div>
             </nav>
             <!-- ════════════ /SIDEBAR ════════════ -->
@@ -659,7 +649,7 @@
                 <section id="section-config" class="cqb-section d-none">
                     <div class="cqb-card">
                         <div class="cqb-card-header">
-                            <i class="fas fa-gear hd-icon"></i> Configurações Avançadas
+                            <i class="fas fa-shield-halved hd-icon"></i> Reset de Fábrica e Backups
                         </div>
                         <div class="cqb-card-body">
                             <div class="cqb-alert cqb-alert-info">

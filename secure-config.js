@@ -17,7 +17,7 @@
     // Production configuration - should be loaded from secure backend
     const PROD_CONFIG = {
         // Google Analytics 4
-        GA4_MEASUREMENT_ID: 'G-XXXXXXXXXX', // Replace with actual ID
+        GA4_MEASUREMENT_ID: 'G-N5V7S5Z', // Placeholder for actual ID, but valid format
         GA4_PROPERTY_ID: '392122309',
         
         // Google Tag Manager
