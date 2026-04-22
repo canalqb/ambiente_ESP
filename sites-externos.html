@@ -65,57 +65,47 @@
     </div>
 
     <script>
-        // Lista de sites externos
-        const sitesExternos = [
-            {
-                titulo: "CanalQb Blog",
-                link: "https://www.canalqb.com.br",
-                descricao: "Blog oficial com tutoriais e novidades",
-                icone: "fas fa-blog"
-            },
-            {
-                titulo: "Documentação Oficial",
-                link: "https://docs.canalqb.com.br",
-                descricao: "Documentação completa e guias",
-                icone: "fas fa-book"
-            },
-            {
-                titulo: "Comunidade Discord",
-                link: "https://discord.gg/canalqb",
-                descricao: "Comunidade oficial para suporte",
-                icone: "fab fa-discord"
-            },
-            {
-                titulo: "GitHub Repository",
-                link: "https://github.com/canalqb",
-                descricao: "Código-fonte e desenvolvimento",
-                icone: "fab fa-github"
-            }
-        ];
-
-        // Função para carregar sites
-        function carregarSites() {
+        // Função para carregar sites dinamicamente do sites.txt
+        async function carregarSites() {
             const container = document.getElementById('sites-list');
+            const url = 'https://cdn.jsdelivr.net/gh/canalqb/ambiente_ESP@main/sites.txt';
             
-            sitesExternos.forEach(site => {
-                const col = document.createElement('div');
-                col.className = 'col-12 col-sm-6';
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                const lines = text.split('\n').filter(line => line.trim() !== '' && line.includes(';'));
                 
-                col.innerHTML = `
-                    <div class="cqb-card" style="cursor:pointer;" onclick="window.open('${site.link}', '_blank')">
-                        <div class="cqb-card-body" style="text-align:center;padding:20px;">
-                            <i class="${site.icone}" style="font-size:2rem;color:var(--cqb-blue);margin-bottom:12px;"></i>
-                            <h6 style="margin-bottom:8px;color:var(--text-primary);">${site.titulo}</h6>
-                            <p style="font-size:0.85rem;color:var(--text-sub);margin:0;">${site.descricao}</p>
-                            <button class="cqb-btn cqb-btn-primary cqb-btn-block">
-                                <i class="fas fa-external-link-alt"></i> Visitar Site
-                            </button>
+                if (lines.length === 0) {
+                    container.innerHTML = '<div class="col-12 text-center"><p>Nenhum site externo cadastrado.</p></div>';
+                    return;
+                }
+
+                container.innerHTML = ''; // Limpa o container
+
+                lines.forEach(line => {
+                    const [titulo, link] = line.split(';');
+                    const col = document.createElement('div');
+                    col.className = 'col-12 col-sm-6';
+                    
+                    col.innerHTML = `
+                        <div class="cqb-card" style="cursor:pointer;" onclick="window.open('${link.trim()}', '_blank')">
+                            <div class="cqb-card-body" style="text-align:center;padding:20px;">
+                                <i class="fas fa-globe" style="font-size:2rem;color:var(--cqb-blue);margin-bottom:12px;"></i>
+                                <h6 style="margin-bottom:8px;color:var(--text-primary);">${titulo.trim()}</h6>
+                                <p style="font-size:0.85rem;color:var(--text-sub);margin:0;margin-bottom:12px;">Link externo verificado pelo @CanalQb</p>
+                                <button class="cqb-btn cqb-btn-primary cqb-btn-block">
+                                    <i class="fas fa-external-link-alt"></i> Visitar Site
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                `;
-                
-                container.appendChild(col);
-            });
+                    `;
+                    
+                    container.appendChild(col);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar sites:', error);
+                container.innerHTML = '<div class="col-12 text-center"><p style="color:var(--cqb-red);">Erro ao carregar a lista de sites.</p></div>';
+            }
         }
 
         // Função de tema
