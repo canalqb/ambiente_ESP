@@ -949,6 +949,21 @@
                 
                 if (badge) badge.classList.toggle('visible', !!ok);
                 if (gok) gok.style.display = ok ? 'inline-block' : 'none';
+                
+                // Desbloqueia menus se o Google estiver OK
+                updateLocks();
+            }
+
+            function updateLocks() {
+                const isUnlocked = !!S.driveConfigured;
+                ['menu-chat', 'menu-marketplace'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.classList.toggle('locked', !isUnlocked);
+                        const lockIcon = el.querySelector('.fa-lock');
+                        if (lockIcon) lockIcon.style.display = isUnlocked ? 'none' : 'inline-block';
+                    }
+                });
             }
 
             /* PROGRESS BAR */
@@ -1156,7 +1171,7 @@
                         }
                     });
                     S.driveConfigured = true;
-                    unlockModules();
+                    updateSystemStatus();
                     updateProgress();
                     updateSystemStatus();
                     document.getElementById('gstep-3').classList.add('done');
@@ -1189,7 +1204,7 @@
             }
 
             /* UNLOCK */
-            function unlockModules() {
+            function old_unlockModules() {
                 // Verificar se Google Drive está configurado para liberar módulos
                 const googleConfigured = S.driveConfigured && S.folderId;
 
@@ -1334,7 +1349,7 @@
                     updateProgress();
 
                     if (S.clientId && S.clientSecret && S.svcEmail && S.driveConfigured) {
-                        unlockModules();
+                        updateSystemStatus();
                     }
 
                     try {
