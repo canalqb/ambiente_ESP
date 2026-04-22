@@ -13,11 +13,11 @@ jobs:
     steps:
       - name: Purge jsDelivr Cache
         run: |
-          echo "Iniciando limpeza do cache jsDelivr para o repositório ambiente_ESP..."
-          curl -X GET "https://purge.jsdelivr.net/gh/canalqb/ambiente_ESP@main/index.html"
-          curl -X GET "https://purge.jsdelivr.net/gh/canalqb/ambiente_ESP@main/style.css"
-          curl -X GET "https://purge.jsdelivr.net/gh/canalqb/ambiente_ESP@main/components.css"
-          curl -X GET "https://purge.jsdelivr.net/gh/canalqb/ambiente_ESP@main/secure-config.js"
-          curl -X GET "https://purge.jsdelivr.net/gh/canalqb/ambiente_ESP@main/ga4-gtm-integration.js"
-          curl -X GET "https://purge.jsdelivr.net/gh/canalqb/ambiente_ESP@main/sites.txt"
+          echo "Iniciando limpeza do cache jsDelivr para o repositório ESP_ambiente..."
+          curl -X GET "https://purge.jsdelivr.net/gh/canalqb/ESP_ambiente@main/index.html"
+          curl -X GET "https://purge.jsdelivr.net/gh/canalqb/ESP_ambiente@main/style.css"
+          curl -X GET "https://purge.jsdelivr.net/gh/canalqb/ESP_ambiente@main/components.css"
+          curl -X GET "https://purge.jsdelivr.net/gh/canalqb/ESP_ambiente@main/secure-config.js"
+          curl -X GET "https://purge.jsdelivr.net/gh/canalqb/ESP_ambiente@main/ga4-gtm-integration.js"
+          curl -X GET "https://purge.jsdelivr.net/gh/canalqb/ESP_ambiente@main/sites.txt"
           echo "Processo concluído."
