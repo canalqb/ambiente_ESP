@@ -90,6 +90,7 @@
                         <p class="cqb-brand-sub"> @CanalQb</p>
                     </div>
                     <span class="cqb-ver">V19</span>
+                    <span id="badge-sistema" class="cqb-status-badge">Ativo</span>
                 </div>
 
                 <div class="cqb-nav" id="cqb-nav">
@@ -124,6 +125,7 @@
                     <div class="cqb-submenu" id="sub-advanced-config">
                         <a class="cqb-nav-sub" id="submenu-google" onclick="showSection('google')">
                             <i class="fab fa-google"></i> Google Drive
+                            <i id="google-ok" class="fas fa-check-circle" style="display:none; color:#22c55e; margin-left:5px; font-size:0.8rem;"></i>
                         </a>
                         <a class="cqb-nav-sub" id="submenu-bluetooth" onclick="showTab('bluetooth')">
                             <i class="fab fa-bluetooth"></i> Bluetooth
@@ -942,16 +944,22 @@
             /* SISTEMA ATIVO */
             function updateSystemStatus() {
                 const ok = S.clientId && S.clientSecret && S.svcEmail && S.driveConfigured;
-                document.getElementById('badge-sistema').classList.toggle('visible', !!ok);
-                document.getElementById('google-ok').style.display = ok ? 'inline-block' : 'none';
+                const badge = document.getElementById('badge-sistema');
+                const gok = document.getElementById('google-ok');
+                
+                if (badge) badge.classList.toggle('visible', !!ok);
+                if (gok) gok.style.display = ok ? 'inline-block' : 'none';
             }
 
             /* PROGRESS BAR */
             function updateProgress() {
                 const steps = [!!S.clientId, !!S.clientSecret, !!S.svcEmail, !!S.refreshToken, !!S.folderId, !!S.driveConfigured];
                 const pct = Math.round((steps.filter(Boolean).length / steps.length) * 100);
-                document.getElementById('progress-fill').style.width = pct + '%';
-                document.getElementById('progress-pct').textContent = pct + '%';
+                const fill = document.getElementById('progress-fill');
+                const text = document.getElementById('progress-pct');
+                
+                if (fill) fill.style.width = pct + '%';
+                if (text) text.textContent = pct + '%';
             }
 
             /* STEP EVAL */
